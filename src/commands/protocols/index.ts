@@ -3,3 +3,9 @@ export type ICommandResponse<F = Function> = {
   description: string;
   action: F;
 };
+
+
+
+export interface ICommand<T = any> {
+  build: () => ICommandResponse
+}
