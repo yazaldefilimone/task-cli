@@ -1,5 +1,5 @@
 export type ICommandResponse<F = Function> = {
-  name: string;
+  command: string;
   description: string;
   action: F;
 };
