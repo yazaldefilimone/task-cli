@@ -26,8 +26,6 @@ Get to know more about your cat breed
 - [Inquirer](https://github.com/SBoudrias/Inquirer.js)
 - [Chalk](https://github.com/chalk/chalk)
 - [NCP](https://github.com/AvianFlu/ncp)
-- [Mocha](https://mochajs.org/)
-- [Expect](https://jestjs.io/docs/expect)
 
   <a id="methodologies"></a>
 
