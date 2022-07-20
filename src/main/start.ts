@@ -1,5 +1,5 @@
 import "./settings/alias";
 
-import setup from "@/core/settings/setup";
+import setup from "@/main/settings/setup";
 
 setup.parse();
