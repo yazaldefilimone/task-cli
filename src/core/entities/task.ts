@@ -1,7 +1,7 @@
 export type TaskStorage = {
   id?: number;
   description: string;
-  created: string;
+  createdAt: Date;
   status: Status;
   priority: Priority;
 };
