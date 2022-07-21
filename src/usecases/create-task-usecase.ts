@@ -13,7 +13,7 @@ export class CreateTaskUseCase implements ICreateTaskUseCase {
     this.incrementIdService = incrementIdService;
   }
 
-  async execute({ description, priority }: ICreateTaskUseCase.Input): ICreateTaskUseCase.Output {
+  public async execute({ description, priority }: ICreateTaskUseCase.Input): ICreateTaskUseCase.Output {
     if (!description || description.length <= 2) {
       return left(new InvalidDescriptionError(description));
     }
@@ -35,10 +35,10 @@ export class CreateTaskUseCase implements ICreateTaskUseCase {
 
     const response = await this.taskStorage.create(buildTask);
 
-    if (response instanceof Error) {
+    if (response.isLeft()) {
       return left(new InternalError());
     }
 
-    return right({ id: response.id });
+    return right({ id: response.value.id });
   }
 }
