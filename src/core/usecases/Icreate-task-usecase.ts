@@ -9,5 +9,5 @@ export interface ICreateTaskUseCase {
 export namespace ICreateTaskUseCase {
   export type Input = TaskClient;
 
-  export type Output = Promise<Either<InvalidDescriptionError | InternalError | IncrementIdError, { id: string }>>;
+  export type Output = Promise<Either<InvalidDescriptionError | InternalError | IncrementIdError, { id: number }>>;
 }
