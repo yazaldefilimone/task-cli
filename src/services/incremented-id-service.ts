@@ -11,10 +11,11 @@ export class IncrementIdService {
   async id(): Promise<Either<IncrementIdError | InternalError, number>> {
     try {
       const all = await this.taskStorage.getAll();
-      if (all instanceof Error) {
+      if (all.isLeft()) {
         return left(new IncrementIdError());
       }
-      const id = all.length;
+
+      const id = all.value.length;
 
       return right(id);
     } catch (error) {
