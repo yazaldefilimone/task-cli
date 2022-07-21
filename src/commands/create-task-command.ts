@@ -1,17 +1,19 @@
 import { ICommand, ICommandResponse } from "@/commands/protocols";
 import { ICreateTaskUseCase } from "@/core/usecases";
 
-export class CreateTaskCommand implements ICommand{
+export class CreateTaskCommand implements ICommand {
   private readonly createTaskUseCase: ICreateTaskUseCase;
   constructor(createTaskUseCase: ICreateTaskUseCase) {
     this.createTaskUseCase = createTaskUseCase;
   }
 
-  protected action(options: CreateTaskCommand.optionsProps, parameters: { args: string[]}): void | Promise<void>{
-    console.log({options, data:parameters.args})
+  public action(options: CreateTaskCommand.optionsProps, parameters: { args: string[] }): void | Promise<void> {
+    this.createTaskUseCase
+      .execute({ priority: options.priority, description: parameters.args[0] })
+      .then((response) => console.log({ response }));
   }
 
-  public build(): ICommandResponse<typeof this.action>{
+  public build(): ICommandResponse<typeof this.action> {
     return {
       command: "add",
       description: "create new task",
@@ -20,9 +22,8 @@ export class CreateTaskCommand implements ICommand{
   }
 }
 
-
 export namespace CreateTaskCommand {
   export type optionsProps = {
-    priority?: boolean 
-  }
+    priority?: any;
+  };
 }
