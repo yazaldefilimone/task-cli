@@ -1,8 +1,9 @@
 import { Task, TaskClient, TaskStorage } from "@/core/entities";
+import { Either } from "@/shared/error-handler/either";
 
 export interface ITaskStorage {
-  create: (data: TaskStorage) => Promise<{ id: string } | Error>;
-  dropOne: (data: { id: string }) => Promise<{ id: string } | Error>;
-  done: (data: { id: string }) => Promise<{ id: string } | Error>;
-  getAll: () => Promise<Task[] | Error>;
+  create: (data: TaskStorage) => Promise<Either<Error, { id: number }>>;
+  dropOne: (data: { id: number }) => Promise<Either<Error, { id: number }>>;
+  done: (data: { id: number }) => Promise<Either<Error, { id: number }>>;
+  getAll: () => Promise<Either<Error, Task[]>>;
 }
