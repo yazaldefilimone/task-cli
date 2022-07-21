@@ -1,4 +1,4 @@
-
+import { writeFile } from "fs/promises";
 import unixShell from 'shelljs';
 
 export class UnixShellService{
@@ -6,8 +6,26 @@ export class UnixShellService{
   constructor(unix: typeof unixShell){
     this.unix = unix
   }
-  makeDir(filePath:string, fileName:string){
-    const result =  this.unix.mkdir(`~/${filePath}/${fileName}`)
-    console.log({result})
+  public async makeDir(filePath:string, fileName:string){
+    this.unix.mkdir('-p', `~/${filePath}/${fileName}`);
+  }
+
+  public async redFile(filePath:string){
+    const file =  this.unix.cat('./package.json');
+    const json = JSON.parse(file);
+    return json.task
+  }
+  public async writeFile<T = any>(filePath:string, data:T){
+    try {
+      const file =  this.unix.cat('./package.json');
+      const json = JSON.parse(file);
+      json.task.push(data)
+      await writeFile(filePath, json)
+      return true
+
+    } catch (error) {
+      return false
+    }
+   
   }
 }
