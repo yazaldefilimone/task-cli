@@ -10,6 +10,7 @@ program.name(packageInfo.name).description(packageInfo.description).version(pack
 program
   .command(createTaskBuild.command)
   .description(createTaskBuild.description)
-  .action((str, options) => createTaskBuild.action(str, options));
+  .option("--priority", "display just the first substring")
+  .action((options, parameters) => createTaskCommandFactory.action(options, parameters));
 
 export default program;
