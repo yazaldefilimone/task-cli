@@ -3,6 +3,7 @@ import { ITaskStorage } from "@/usecases/protocols";
 import { UnixShellService } from "@/services";
 import { InternalError, NotFoundTaskError } from "@/core/errors";
 import { Either, right, left } from "@/shared/error-handler/either";
+import { convertedTask } from "./converted-task";
 
 export class StorageService implements ITaskStorage {
   private readonly unixShellService: UnixShellService;
@@ -16,6 +17,24 @@ export class StorageService implements ITaskStorage {
     this.rootPath = rootPath;
     this.root = `${rootPath}/${rootFile}`;
     this.int(this.rootPath, this.rootFile);
+  }
+
+  async done(data: { id: number }): Promise<Either<Error, { id: number }>> {
+    const results = await this.unixShellService.redFile(this.root);
+    const doneFile = results.find((task) => task.id === data.id);
+    if (!doneFile) {
+      return left(new NotFoundTaskError(String(data.id)));
+    }
+    const newsTasks = results.filter((task) => task.id !== data.id);
+
+    doneFile.status = "done";
+    newsTasks.push(doneFile);
+
+    const result = await this.unixShellService.writeFile(this.root, newsTasks);
+
+    if (!result) return left(new InternalError());
+
+    return right({ id: doneFile.id as number });
   }
 
   async dropOne(data: { id: number }): Promise<Either<Error, { id: number }>> {
