@@ -37,6 +37,12 @@ export class StorageService implements ITaskStorage {
     return right({ id: doneFile.id as number });
   }
 
+  async getAll(): Promise<Either<Error, Task[]>> {
+    const tasks = await this.unixShellService.redFile(this.root);
+    const taskClient = tasks.map((task) => convertedTask(task));
+    return right(taskClient);
+  }
+
   async dropOne(data: { id: number }): Promise<Either<Error, { id: number }>> {
     const dataStorage = await this.unixShellService.redFile(this.root);
     const isExists = dataStorage.find((task) => task?.id === data.id);
