@@ -4,6 +4,7 @@ import { right, left } from "@/shared/error-handler/either";
 import { ITaskStorage } from "./protocols";
 import { IncrementIdService } from "@/services";
 import { TaskStorage } from "@/core/entities";
+import moment from "moment";
 
 export class CreateTaskUseCase implements ICreateTaskUseCase {
   private readonly taskStorage: ITaskStorage;
@@ -27,7 +28,7 @@ export class CreateTaskUseCase implements ICreateTaskUseCase {
 
     const buildTask: TaskStorage = {
       id: buildIncrementId.value,
-      createdAt: new Date(),
+      createdAt: moment().format(),
       priority,
       status: "padding",
       description,
