@@ -13,8 +13,8 @@ export class DropTaskCommand implements ICommand {
 
   public build(): ICommandResponse<typeof this.action> {
     return {
-      command: "add",
-      description: "create new task",
+      command: "drop",
+      description: "drop a task",
       action: this.action,
     };
   }
