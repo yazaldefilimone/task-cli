@@ -1,6 +1,8 @@
 import { TaskStorage } from "@/core/entities";
 import { writeFile, readFile } from "fs/promises";
+import fs from "fs";
 import unixShell from "shelljs";
+import { promisify } from "util";
 
 export class UnixShellService {
   private unix: typeof unixShell;
@@ -20,6 +22,15 @@ export class UnixShellService {
     const json = JSON.parse(file as any);
     console.log(json);
     return json.tasks;
+  }
+  public async findFile(root: string): Promise<boolean> {
+    const accessAsync = promisify(fs.access);
+    try {
+      await accessAsync(root, fs.constants.F_OK);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
   public async writeFile<T = any>(filePath: string, data: T) {
     try {
