@@ -26,6 +26,8 @@ Get to know more about your cat breed
 - [Inquirer](https://github.com/SBoudrias/Inquirer.js)
 - [Chalk](https://github.com/chalk/chalk)
 - [NCP](https://github.com/AvianFlu/ncp)
+- [momentjs](https://momentjs.com)
+- [Jest](https://jestjs.io/)
 
   <a id="methodologies"></a>
 
@@ -35,6 +37,7 @@ Get to know more about your cat breed
 - [SOLID](https://en.wikipedia.org/wiki/SOLID)
 - [Functional programming](https://en.wikipedia.org/wiki/Functional_programming)
 - [POO](https://pt.wikipedia.org/wiki/Programa%C3%A7%C3%A3o_orientada_a_objetos)
+- [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing)
 
 <a id="setup"></a>
 
