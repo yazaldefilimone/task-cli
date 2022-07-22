@@ -1,7 +1,7 @@
 import shelljs from "shelljs";
-import { CreateTaskCommand } from "@/commands";
+import { CreateTaskCommand, GetAllTaskCommand } from "@/commands";
 import { IncrementIdService, StorageService, UnixShellService } from "@/services";
-import { CreateTaskUseCase } from "@/usecases";
+import { CreateTaskUseCase, GetAllTaskUseCase } from "@/usecases";
 
 const user = shelljs.exec("whoami").stdout;
 const rootPath = `/home/${user.trim()}/.task-cli`;
@@ -15,4 +15,10 @@ export const CreateTaskCommandFactory = function (): CreateTaskCommand {
   const createTaskUseCase = new CreateTaskUseCase(taskStorage, incrementIdService);
   const createTaskCommand = new CreateTaskCommand(createTaskUseCase);
   return createTaskCommand;
+};
+
+export const GetAllTaskCommandFactory = function (): GetAllTaskCommand {
+  const getAllTaskUseCase = new GetAllTaskUseCase(taskStorage);
+  const getAllTaskCommand = new GetAllTaskCommand(getAllTaskUseCase);
+  return getAllTaskCommand;
 };
