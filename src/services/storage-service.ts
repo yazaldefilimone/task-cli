@@ -31,10 +31,14 @@ export class StorageService implements ITaskStorage {
   }
 
   private int(rootPath: string, rootFile: string) {
-    this.unixShellService
-      .makeDir(rootPath, rootFile)
-      .then(() => 0)
-      .catch();
+    this.unixShellService.findFile(this.root).then((result) => {
+      if (!result) {
+        this.unixShellService
+          .makeDir(rootPath, rootFile)
+          .then(() => 0)
+          .catch();
+      }
+    });
   }
 
   public async create(data: TaskStorage): Promise<Either<Error, { id: number }>> {
