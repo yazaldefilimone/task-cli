@@ -1,4 +1,5 @@
 import { IGetAllTaskUseCase } from "@/core/usecases";
+import { convertedTask } from "@/services/converted-task";
 import { right, left } from "@/shared/error-handler/either";
 import { ITaskStorage } from "./protocols";
 
@@ -12,6 +13,7 @@ export class GetAllTaskUseCase implements IGetAllTaskUseCase {
     if (tasks.isLeft()) {
       return left(tasks.value);
     }
-    return right(tasks.value);
+    const taskClient = tasks.value.map((task) => convertedTask(task));
+    return right(taskClient);
   }
 }
