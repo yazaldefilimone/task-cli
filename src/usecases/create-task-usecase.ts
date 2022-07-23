@@ -40,6 +40,6 @@ export class CreateTaskUseCase implements ICreateTaskUseCase {
       return left(new InternalError());
     }
 
-    return right({ id: response.value.id });
+    return right({ id: response.value.id as any });
   }
 }
