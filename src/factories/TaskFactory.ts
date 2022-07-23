@@ -2,6 +2,8 @@ import shelljs from "shelljs";
 import { CreateTaskCommand, DropTaskCommand, GetAllTaskCommand } from "@/commands";
 import { IncrementIdService, StorageService, UnixShellService } from "@/services";
 import { CreateTaskUseCase, DropTaskUseCase, GetAllTaskUseCase } from "@/usecases";
+import { DoneTaskCommand } from "@/commands/done-task-command";
+import { DoneTaskUseCase } from "@/usecases/done-task-usecase";
 
 const user = shelljs.exec("whoami").stdout;
 const rootPath = `/home/${user.trim()}/.task-cli`;
@@ -27,4 +29,10 @@ export const DropTaskCommandFactory = function (): DropTaskCommand {
   const dropTaskUseCase = new DropTaskUseCase(taskStorage);
   const dropTaskCommand = new DropTaskCommand(dropTaskUseCase);
   return dropTaskCommand;
+};
+
+export const DoneTaskCommandFactory = function (): DoneTaskCommand {
+  const doneTaskUseCase = new DoneTaskUseCase(taskStorage);
+  const doneTaskCommand = new DoneTaskCommand(doneTaskUseCase);
+  return doneTaskCommand;
 };
