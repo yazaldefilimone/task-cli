@@ -8,7 +8,7 @@ export class DropTaskCommand implements ICommand {
   }
 
   public action(options: DropTaskCommand.optionsProps, parameters: { args: string[] }): void | Promise<void> {
-    this.dropTaskUseCase.execute({ id: Number(parameters.args[0]) }).then((response) => console.log({ response }));
+    this.dropTaskUseCase.execute({ id: Number(options) }).then((response) => console.log({ response }));
   }
 
   public build(): ICommandResponse<typeof this.action> {
