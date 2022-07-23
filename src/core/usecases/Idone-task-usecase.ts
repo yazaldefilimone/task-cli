@@ -7,7 +7,5 @@ export interface IDoneTaskUseCase {
 
 export namespace IDoneTaskUseCase {
   export type Input = { id: number };
-  export type Output = Promise<
-    Either<InvalidDescriptionError | InternalError | IncrementIdError, { description: string }>
-  >;
+  export type Output = Promise<Either<InvalidDescriptionError | InternalError | IncrementIdError, { id: number }>>;
 }
