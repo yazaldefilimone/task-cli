@@ -37,10 +37,9 @@ export class StorageService implements ITaskStorage {
     return right({ id: doneFile.id as number });
   }
 
-  async getAll(): Promise<Either<Error, Task[]>> {
+  async getAll(): Promise<Either<Error, TaskStorage[]>> {
     const tasks = await this.unixShellService.redFile(this.root);
-    const taskClient = tasks.map((task) => convertedTask(task));
-    return right(taskClient);
+    return right(tasks);
   }
 
   async dropOne(data: { id: number }): Promise<Either<Error, { id: number }>> {
@@ -66,11 +65,19 @@ export class StorageService implements ITaskStorage {
     });
   }
 
-  public async create(data: TaskStorage): Promise<Either<Error, { id: number }>> {
+  public async create(data: TaskStorage | TaskStorage[]): Promise<Either<Error, { id: number } | { ok: boolean }>> {
+    if (data instanceof Array) {
+      const response = await this.unixShellService.writeFile<TaskStorage[]>(this.root, data);
+      if (!response) {
+        return left(new InternalError());
+      }
+      return right({ ok: true });
+    }
+
     const storageTask = await this.unixShellService.redFile(this.root);
     storageTask.push(data);
-
     const response = await this.unixShellService.writeFile<TaskStorage[]>(this.root, storageTask);
+
     if (!response) {
       return left(new InternalError());
     }
