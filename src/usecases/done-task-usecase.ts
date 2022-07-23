@@ -25,7 +25,7 @@ export class DoneTaskUseCase implements IDoneTaskUseCase {
     const storageTask = tasks.filter((task) => task.id !== data.id);
     storageTask.push(task);
 
-    const response = await this.taskStorage.create(storageTask);
+    const response = await this.taskStorage.createDropHold(storageTask);
     if (response.isLeft()) {
       return left(new InternalError());
     }
