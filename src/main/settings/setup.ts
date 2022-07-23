@@ -1,5 +1,10 @@
 import packageInfo from "@/../package.json";
-import { CreateTaskCommandFactory, DropTaskCommandFactory, GetAllTaskCommandFactory } from "@/factories";
+import {
+  CreateTaskCommandFactory,
+  DoneTaskCommandFactory,
+  DropTaskCommandFactory,
+  GetAllTaskCommandFactory,
+} from "@/factories";
 
 import { program } from "commander";
 
@@ -12,6 +17,9 @@ const getAllTaskBuild = getAllTaskCommandFactory.build();
 //drop
 const dropTaskCommandFactory = DropTaskCommandFactory();
 const dropTaskBuild = dropTaskCommandFactory.build();
+//done
+const doneTaskCommandFactory = DoneTaskCommandFactory();
+const doneTaskCommandBuild = doneTaskCommandFactory.build();
 
 program.name(packageInfo.name).description(packageInfo.description).version(packageInfo.version);
 program
@@ -34,5 +42,11 @@ program
   .description(dropTaskBuild.description)
   .argument("<id>", "id of task")
   .action((options, parameters) => dropTaskCommandFactory.action(options, parameters));
+
+program
+  .command(doneTaskCommandBuild.command)
+  .description(doneTaskCommandBuild.description)
+  .argument("<id>", "id of task")
+  .action((options, parameters) => doneTaskCommandFactory.action(options, parameters));
 
 export default program;
