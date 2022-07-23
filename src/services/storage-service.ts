@@ -65,15 +65,7 @@ export class StorageService implements ITaskStorage {
     });
   }
 
-  public async create(data: TaskStorage | TaskStorage[]): Promise<Either<Error, { id: number } | { ok: boolean }>> {
-    if (data instanceof Array) {
-      const response = await this.unixShellService.writeFile<TaskStorage[]>(this.root, data);
-      if (!response) {
-        return left(new InternalError());
-      }
-      return right({ ok: true });
-    }
-
+  public async create(data: TaskStorage): Promise<Either<Error, { id: number }>> {
     const storageTask = await this.unixShellService.redFile(this.root);
     storageTask.push(data);
     const response = await this.unixShellService.writeFile<TaskStorage[]>(this.root, storageTask);
@@ -82,5 +74,13 @@ export class StorageService implements ITaskStorage {
       return left(new InternalError());
     }
     return right({ id: data.id as number });
+  }
+
+  public async createDropHold(data: TaskStorage[]): Promise<Either<Error, { ok: boolean }>> {
+    const response = await this.unixShellService.writeFile<TaskStorage[]>(this.root, data);
+    if (!response) {
+      return left(new InternalError());
+    }
+    return right({ ok: true });
   }
 }
