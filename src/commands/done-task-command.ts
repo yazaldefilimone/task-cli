@@ -8,7 +8,7 @@ export class DoneTaskCommand implements ICommand {
   }
 
   public action(options: DoneTaskCommand.optionsProps, parameters: { args: string[] }): void | Promise<void> {
-    this.doneTaskUseCase.execute({ id: Number(parameters.args[0]) }).then((response) => console.log({ response }));
+    this.doneTaskUseCase.execute({ id: Number(options) }).then((response) => console.log({ response }));
   }
 
   public build(): ICommandResponse<typeof this.action> {
