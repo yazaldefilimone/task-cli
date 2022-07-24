@@ -7,9 +7,9 @@ export class CreateTaskCommand implements ICommand {
     this.createTaskUseCase = createTaskUseCase;
   }
 
-  public action(options: CreateTaskCommand.optionsProps, parameters: { args: string[] }): void | Promise<void> {
+  public action(options: any, parameters: { args: string[] }): void | Promise<void> {
     this.createTaskUseCase
-      .execute({ priority: options.priority, description: parameters.args[0] })
+      .execute({ priority: options, description: options })
       .then((response) => console.log({ response }));
   }
 
