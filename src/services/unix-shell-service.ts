@@ -13,14 +13,12 @@ export class UnixShellService {
     const init = { tasks: [] };
     const rootPath = filePath;
     this.unix.mkdir(rootPath);
-    console.log(`${rootPath}/${fileName}`);
     await writeFile(`${rootPath}/${fileName}`, JSON.stringify(init));
   }
 
   public async redFile(filePath: string): Promise<TaskStorage[]> {
     const file = await readFile(filePath);
     const json = JSON.parse(file as any);
-    console.log(json);
     return json.tasks;
   }
   public async findFile(root: string): Promise<boolean> {
