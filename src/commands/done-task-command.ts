@@ -14,7 +14,7 @@ export class DoneTaskCommand implements ICommand {
   public build(): ICommandResponse<typeof this.action> {
     return {
       command: "done",
-      description: "done  task",
+      description: "done  a task",
       action: this.action,
     };
   }
