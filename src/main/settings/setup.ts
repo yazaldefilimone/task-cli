@@ -35,7 +35,7 @@ program
   .option("--all", "show all tasks")
   .option("--padding", "show all padding status tasks")
   // .option("-a", "display just the first substring")
-  .action((options, parameters) => getAllTaskCommandFactory.action(options, parameters));
+  .action(async (options, parameters) => await getAllTaskCommandFactory.action(options, parameters));
 
 program
   .command(dropTaskBuild.command)
