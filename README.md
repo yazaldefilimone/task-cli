@@ -1,5 +1,3 @@
-# task-cli
-
 <p align="center">
   <img src="https://img.shields.io/static/v1?label=task cli&message=Welcome&color=FFFFFF&labelColor=110C2F" alt="Unsplash welcome!" />
   <img alt="License" src="https://img.shields.io/static/v1?label=version&message=1.0&color=FFFFFF&labelColor=110C2F">
@@ -72,6 +70,4 @@ yarn dev
 
 ## License
 
-[MIT](https://github.com/yazaldefilimonepinto/task-cli/blob/main/LICENSE) Project License
-
-Creator with 💙 by [Yazalde Filimone](https://www.linkedin.com/in/yazalde-filimone/)
+[MIT](https://github.com/yazaldefilimonepinto/task-cli/blob/main/LICENSE) © [Yazalde Filimone](https://www.linkedin.com/in/yazalde-filimone/)
